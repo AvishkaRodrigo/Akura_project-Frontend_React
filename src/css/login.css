@@ -1,0 +1,24 @@
+.content-login {
+    display: flex;
+    flex-direction: column;    
+    background :linear-gradient(#fff0 0%, #fff0 60%, #1d1d1d 100%), url(../assets/bgImage.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    align-items: center;
+    /* background-color: #008272; */
+    height: 100vh;
+}
+
+.btn-customized3 {
+    border-color: #02352f;
+    color: #02352f;
+    border-width: 2px;
+    font-weight: 600;
+    width: 50%;
+    /* opacity: 100%; */
+}
+.btn-customized3:hover {
+    background-color: #008272;
+    color: aliceblue;
+}

@@ -1,0 +1,39 @@
+.bg-success {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-success-rgb(0, 130, 114)), var(--bs-bg-0)) !important;
+  }
+
+.navbar {
+    background-color: #008272;
+    opacity: 100%;
+}
+.avatar, .logo{
+  height: 3rem;
+}
+
+.nav-item {
+    font-weight: 600;
+    border-width: 2px;
+    border-radius: 5px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.nav-item:hover {
+    background-image: linear-gradient(#008272, #008272, #008272, #04dbc2);
+    color: #000000;
+    flood-color: red;
+    border-width: 1px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

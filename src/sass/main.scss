@@ -1,0 +1,43 @@
+$primary : #008272;
+$secondary : #76BCB3;
+$light : #BFDFDB;
+$dark : #1D1D1D;
+
+$danger :#E5052E;
+$warning : #E5CF05;
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap; // For form validation feedback
+  align-items: stretch;
+
+
+  > .form-control,
+  > .form-select {
+    position: relative; // For focus state's z-index
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0; // https://stackoverflow.com/questions/36247140/why-dont-flex-items-shrink-past-content-size
+  }
+
+  // Bring the "active" form control to the top of surrounding elements
+  > .form-control:focus,
+  > .form-select:focus {
+    z-index: 3;
+  }
+
+  // Ensure buttons are always above inputs for more visually pleasing borders.
+  // This isn't needed for `.input-group-text` since it shares the same border-color
+  // as our inputs.
+  .btn {
+    position: relative;
+    z-index: 2;
+
+    &:focus {
+      z-index: 3;
+    }
+  }
+}
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
