@@ -2,8 +2,9 @@
 import NavbarB from './NavbarB';
 import {BrowserRouter as Routes, Route, Switch} from 'react-router-dom';
 import Inshome from './Inshome';
-import Registration from './Registration';
+import StuRegistration from './StuRegistration';
 import './App.css';
+import ParRegistration from './ParRegistration';
 
 function App() {
   return (
@@ -16,10 +17,11 @@ function App() {
 
           {/* Unspecified Routes */}
           <Route exact path="/">
+            <ParRegistration/>
 
-            <Registration/>
           </Route>
           <Route exact path="/registration">
+            <StuRegistration/>
           </Route>
 
 
