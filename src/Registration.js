@@ -1,30 +1,29 @@
-import {Form, Col,InputGroup, Button, Row, OverlayTrigger, Popover} from 'react-bootstrap';
-import { Icon } from '@iconify/react';
 import { useFormik } from 'formik';
 import * as yup from 'yup'; 
-
+import axios from "axios";
+import {Form, Col,InputGroup, Button, Row, OverlayTrigger, Popover} from 'react-bootstrap';
+import { Icon } from '@iconify/react';
 import './css/main.css';
 import './css/registrationform.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
+
 const Registration = () => {
-  
-   
-    // const { Formik } = formik;
-const formik = useFormik({
-  initialValues :{
-    stufname: '',
-    stulname: '',
-    stucontact: '',
-    stugender: '',
-    stuemail: '',
-    stupassword: '',
-    stuconfirmpassword: '',
-  },
-  validationSchema : yup.object({
+
+  const formik = useFormik({
+    initialValues :{
+      stufname: '',
+      stulname: '',
+      stucontact: '',
+      stugender: '',
+      stuemail: '',
+      stupassword: '',
+      stuconfirmpassword: '',
+    },
+    validationSchema : yup.object({
       
       stufname: yup.string()
-      // .matches(/^(?=.*[a-zA-Z])(?=.{2,10})/,"Password")
+      .matches(/^(?=.*[a-zA-Z])(?=.{2,10})/,"Password")
       .min(2, "Name too short")
       .max(10, "Name too long!")
       .required("Required!"),
@@ -40,7 +39,7 @@ const formik = useFormik({
       .required("Required!"),
       
       stugender: yup.string()
-      // .matches("Male"||"Female","Select your gender")
+      .matches("Male"||"Female","Select your gender")
       .required("Select your gender!"),
       
       stuemail: yup.string()
@@ -55,15 +54,37 @@ const formik = useFormik({
       .oneOf([yup.ref('stupassword'),null], "Password missmatch")
       .required("Required!"),
       
-
-      
-      terms: yup.bool().required().oneOf([true], 'Terms must be accepted'),
     }),
     onSubmit : values =>{
-      // console.log
+      const stufname = values.stufname;
+      const stulname =values.stulname;
+      const stuemail = values.stuemail;
+      const stucontact = values.stucontact;
+      const stugender = values.stugender;
+      const stupassword1 = values.stupassword;
+      const stupassword2 = values.stuconfirmpassword;
+
+      const newStudent = {
+        stufname,
+        stulname,
+        stuemail,
+        stucontact,
+        stugender,
+        stupassword1,
+        stupassword2,
+      }
+      
+      axios.post("http://localhost:5000/student/addStudent", newStudent).then(()=> {
+          window.location.assign('/Instructors');
+          alert("Added Parent Data!");
+      }).catch((err)=> {
+          alert(err);
+          alert("Cannot Add Parent Data!");
+      })
     },
   });
 
+  // strong password popover
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3" className='custombgdark'>Strong Password</Popover.Header>
@@ -72,24 +93,12 @@ const formik = useFormik({
       </Popover.Body>
     </Popover>
   );
-
-  
-// function test () {
-  
-//   if (!formik.errors.stufname){
-//     document.getElementByID('stuFname').style.color = "red";
-//     // stuFname.style
-//   }
-// };
-
-// test();
    
-    return ( 
-        <div className="registration mx-5">
-            
+  return ( 
+      <div className="registration pt-3 mx-5">
+
         <Form noValidate onSubmit={formik.handleSubmit}>
-            
-           
+        <h1 className="display-6">Student Registration</h1>  
           <Row className="pt-3">
           <Form.Group as={Col} md="6" controlId="validationFormik01" className="mb-3">
               <InputGroup hasValidation>
@@ -100,17 +109,13 @@ const formik = useFormik({
                   value={formik.values.stufname}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  // isValid={formik.touched.stufname && !formik.errors.stufname}
-                  // isinvalid={!!formik.errors.stufname }
                   className='custombg form-control stuFname'
                   />
-                  {/* <Form.Control.Feedback type="invalid"> */}
-                  {/* </Form.Control.Feedback> */}
               </InputGroup>
               <div className='invalid-warning'>
-                    {formik.touched.stufname && formik.errors.stufname ? (
-                      <div className=''>{formik.errors.stufname}</div>
-                    ) : null}
+                {formik.touched.stufname && formik.errors.stufname ? (
+                  <div className=''>{formik.errors.stufname}</div>
+                ) : null}
               </div> 
             </Form.Group>
 
@@ -124,15 +129,13 @@ const formik = useFormik({
                   value={formik.values.stulname}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  // isValid={!formik.errors.stulname}
-                  // isinvalid={!!formik.errors.stulname}
                   className='custombg form-control'
                   />
               </InputGroup>
               <div className='invalid-warning'>
-                    {formik.touched.stulname && formik.errors.stulname ? (
-                      <div className=''>{formik.errors.stulname}</div>
-                    ) : null}
+                {formik.touched.stulname && formik.errors.stulname ? (
+                  <div className=''>{formik.errors.stulname}</div>
+                ) : null}
               </div> 
             </Form.Group>            
           </Row>
@@ -144,21 +147,18 @@ const formik = useFormik({
                 <InputGroup.Text id="stucontact" className='input-field'>Contact Number</InputGroup.Text>
                   <input
                   type="number"
-                  // placeholder="Contact Number"
                   aria-describedby="inputGroupPrepend"
                   name="stucontact"
                   value={formik.values.stucontact}
                   onBlur={formik.handleBlur}
                   onChange={formik.handleChange}
-                  // isinvalid={!!formik.errors.stucontact}
                   className='custombg form-control'
                   />
-              {/* {/* <input.Feedback type="invalid">{formik.errors.stucontact}</input.Feedback> */} 
-              </InputGroup>
+                </InputGroup>
               <div className='invalid-warning'>
-                    {formik.touched.stucontact && formik.errors.stucontact ? (
-                      <div className=''>{formik.errors.stucontact}</div>
-                    ) : null}
+                {formik.touched.stucontact && formik.errors.stucontact ? (
+                  <div className=''>{formik.errors.stucontact}</div>
+                ) : null}
               </div>  
             </Form.Group>
 
@@ -171,10 +171,8 @@ const formik = useFormik({
                     value={formik.values.stuemail}
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
-                    // isinvalid={!!formik.errors.stuemail}
                     className='custombg form-control'
                   />
-              {/* {/* <input.Feedback type="invalid">{formik.errors.stuemail}</input.Feedback> */} 
               </InputGroup>
               <div className='invalid-warning'>
                     {formik.touched.stuemail && formik.errors.stuemail ? (
@@ -184,28 +182,44 @@ const formik = useFormik({
             </Form.Group>
           </Row>
           
-          {/* <Row >
+          <Row >
             <Form.Group as={Col} md="6" controlId="validationFormik05" className="mb-3">
               <InputGroup hasValidation>
                 <InputGroup.Text id="stugender" className='input-field'>Gender</InputGroup.Text>
-                  <input
-                  type="select"
-                  aria-label="Default select example" 
-                  name="stugender"
-                  value={formik.values.stugender}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  // isinvalid={!!formik.errors.stugender}
-                  className='custombg form-control' 
-                  >
-                    <option></option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </Form.Select>
-               <input.Feedback type="invalid">{formik.errors.stugender}</input.Feedback>  
+                  <div className="ps-4 pt-2 radiogender col d-flex justify-content-evenly">
+                    <div className="">
+                    <Form.Check
+                      inline
+                      label="Male"
+                      name="stugender"
+                      value="Male"
+                      type="radio"
+                      id="inline-radio-1"
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      />
+                    </div>
+                    <div className="">
+                    <Form.Check
+                    inline
+                    label="Female"
+                    name="stugender"
+                    value="Female"
+                    type="radio"
+                    id="inline-radio-2"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    />
+                    </div>
+                  </div>
                 </InputGroup>
+                <div className='invalid-warning'>
+                    {formik.touched.stugender && formik.errors.stugender ? (
+                      <div className=''>{formik.errors.stugender}</div>
+                    ) : null}
+              </div> 
             </Form.Group>
-          </Row> */}
+          </Row>
 
 
           <Row >
@@ -257,9 +271,11 @@ const formik = useFormik({
               </div> 
             </Form.Group>
           </Row>
-  
+
+          <hr/>
+
           <div className="d-flex justify-content-center">
-            <Button type="submit" className='btn-1'>Submit form</Button>
+            <Button type="submit" className='btn-1 text-dark'>Submit form</Button>
           </div>
 
         </Form>
