@@ -27,14 +27,14 @@ const ParRegistration = () => {
       
       parfname: yup.string()
       .matches(/^(?=.*[a-zA-Z])(?=.{2,20})/,"Name can be only consist with letters")
-      .min(2, "Name too short")
-      .max(20, "Name too long!")
+      .min(2, "Name is too short")
+      .max(20, "Name is too long!")
       .required("Required!"),
       
       parlname: yup.string()
       .matches(/^(?=.*[a-zA-Z])(?=.{2,20})/,"Name can be only consist with letters")
-      .min(2, "Name too short")
-      .max(20, "Name too long!")
+      .min(2, "Name is too short")
+      .max(20, "Name is too long!")
       .required("Required!"),
       
       parcontact: yup.string()
