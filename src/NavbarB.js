@@ -1,7 +1,7 @@
 import  {Navbar, Container, Nav, Offcanvas} from 'react-bootstrap';
 import './css/main.css';
-import './css/navbar.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import './css/navbar.css';
 import avatar from './assets/Avatars/Instructor.png';
 import LogoB from './assets/Logo/Logo-B1.png';
 // import Link from 'react-dom'
@@ -146,13 +146,13 @@ const NavbarB = () => {
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
             placement="end"
           >
-            <Offcanvas.Header closeButton>
+            <Offcanvas.Header className='custombgdark' closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
                 Menu
               </Offcanvas.Title>
             </Offcanvas.Header>
 
-            <Offcanvas.Body>
+            <Offcanvas.Body >
               <Nav className="justify-content-around flex-grow-1 pe-3">
                 
                 {userType_NavBar.map(navitem => (
